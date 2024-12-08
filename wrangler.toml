@@ -1,6 +1,7 @@
 name = "translator"
 main = "src/index.ts"
 compatibility_date = "2024-12-08"
+assets = { directory = "public" }
 
 # compatibility_flags = [ "nodejs_compat" ]
 
@@ -20,8 +21,8 @@ compatibility_date = "2024-12-08"
 # database_name = "my-database"
 # database_id = ""
 
-# [ai]
-# binding = "AI"
+[ai]
+binding = "AI"
 
 # [observability]
 # enabled = true
