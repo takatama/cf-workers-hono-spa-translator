@@ -1,1 +1,8 @@
-# cf-workers-hono-spa-translator-basic
+```
+npm install
+npm run dev
+```
+
+```
+npm run deploy
+```
