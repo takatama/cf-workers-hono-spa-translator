@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     translateBtn.disabled = promptInput.value.trim() === "";
   });
 
+  // Step4 XSS対策
   function escapeHTML(str) {
     return str
       .replace(/&/g, "&amp;")
@@ -22,6 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // 翻訳履歴の追加
   function addToHistory(inputText, translatedText) {
     const historyItem = document.createElement("li");
+    // historyItem.innerHTML = `<strong>日本語:</strong> ${inputText}<br><strong>英語:</strong> ${translatedText}`;
     historyItem.innerHTML = `<strong>日本語:</strong> ${escapeHTML(inputText)}<br><strong>英語:</strong> ${escapeHTML(translatedText)}`;
     historyList.appendChild(historyItem);
     historyList.scrollTop = historyList.scrollHeight; // 履歴リストをスクロールダウン
