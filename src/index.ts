@@ -4,14 +4,19 @@ import translate from './translate'
 import turnstile from './turnstile'
 // Step2 JWTでセッションを管理
 import { sessionMiddleware } from './session'
-// import { csrfMiddleware, secFetchSiteMiddleware } from './csrf'
+// Step3 CSRF対策
+import { csrfMiddleware, secFetchSiteMiddleware } from './csrf'
 
 const app = new Hono()
 
-// app.use('*', csrfMiddleware())
-// app.use('*', secFetchSiteMiddleware())
+// Step3 CSRF対策
+app.use('*', csrfMiddleware())
+app.use('*', secFetchSiteMiddleware())
+
+// Step2 JWTでセッションを管理
 app.use('/api/*', sessionMiddleware())
 
+// Step1 Turnstileを導入
 app.route('/auth', turnstile)
 app.route('/api/translate', translate)
 
