@@ -11,20 +11,21 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Step4 XSS対策
-  function escapeHTML(str) {
-    return str
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
-  }
+  // function escapeHTML(str) {
+  //   return str
+  //     .replace(/&/g, "&amp;")
+  //     .replace(/</g, "&lt;")
+  //     .replace(/>/g, "&gt;")
+  //     .replace(/"/g, "&quot;")
+  //     .replace(/'/g, "&#039;");
+  // }
   
   // 翻訳履歴の追加
   function addToHistory(inputText, translatedText) {
     const historyItem = document.createElement("li");
-    // historyItem.innerHTML = `<strong>日本語:</strong> ${inputText}<br><strong>英語:</strong> ${translatedText}`;
-    historyItem.innerHTML = `<strong>日本語:</strong> ${escapeHTML(inputText)}<br><strong>英語:</strong> ${escapeHTML(translatedText)}`;
+    historyItem.innerHTML = `<strong>日本語:</strong> ${inputText}<br><strong>英語:</strong> ${translatedText}`;
+    // Step4 XSS対策
+    // historyItem.innerHTML = `<strong>日本語:</strong> ${escapeHTML(inputText)}<br><strong>英語:</strong> ${escapeHTML(translatedText)}`;
     historyList.appendChild(historyItem);
     historyList.scrollTop = historyList.scrollHeight; // 履歴リストをスクロールダウン
   }
@@ -42,12 +43,11 @@ document.addEventListener("DOMContentLoaded", () => {
         body: formData,
       });
 
-      // if (!response.ok) {
-      //   throw new Error(`HTTP error! status: ${response.status}`);
-      // }
-      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
       // Step2 JWTでセッションを管理
-      verifyResponse(response);
+      // verifyResponse(response);
 
       const translatedText = await response.text();
       addToHistory(promptInput.value, translatedText);
