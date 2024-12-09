@@ -40,9 +40,12 @@ document.addEventListener("DOMContentLoaded", () => {
         body: formData,
       });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+      // if (!response.ok) {
+      //   throw new Error(`HTTP error! status: ${response.status}`);
+      // }
+      
+      // Step2 JWTでセッションを管理
+      verifyResponse(response);
 
       const translatedText = await response.text();
       addToHistory(promptInput.value, translatedText);
