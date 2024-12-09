@@ -1,6 +1,6 @@
 import { Hono } from 'hono'
 // Step2 JWTでセッションを管理
-import { createSessionCookie } from './session'
+// import { createSessionCookie } from './session'
 
 type ResponseJson = {
   success: boolean
@@ -41,7 +41,7 @@ app.post('/', async (c) => {
     return c.text('Unauthenticated', 401)
   }
   // Step2 JWTでセッションを管理
-  await createSessionCookie(c, { user: 'authenticated' })
+  // await createSessionCookie(c, { user: 'authenticated' })
   return c.text('Authenticated')
 })
 
