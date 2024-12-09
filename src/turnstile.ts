@@ -1,5 +1,6 @@
 import { Hono } from 'hono'
-// import { createSessionCookie } from './session'
+// Step2 JWTでセッションを管理
+import { createSessionCookie } from './session'
 
 type ResponseJson = {
   success: boolean
@@ -23,7 +24,6 @@ export async function verifyTurnstileToken(secretKey: string, token: string, ip:
 
 type Bindings = {
   TURNSTILE_SECRET_KEY: string,
-  JWT_SECRET: string
 }
 
 const app = new Hono<{ Bindings: Bindings }>()
@@ -40,8 +40,8 @@ app.post('/', async (c) => {
   if (!isValid) {
     return c.text('Unauthenticated', 401)
   }
-
-  // await createSessionCookie(c, { user: 'authenticated' }, c.env.JWT_SECRET)
+  // Step2 JWTでセッションを管理
+  await createSessionCookie(c, { user: 'authenticated' })
   return c.text('Authenticated')
 })
 
